@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Brightside Code Club helps curious kids learn to build with HTML, Python, and AI." />
+	<title>Brightside Code Club | Learn to Code</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--ink: #202337;
+			--muted: #5f6479;
+			--paper: #fffaf1;
+			--pattern: rgba(32, 35, 55, 0.13);
+			--coral: #ff735d;
+			--aqua: #66d9ca;
+			--lemon: #f7db58;
+			--lilac: #b9a7ff;
+			--line: rgba(32, 35, 55, 0.14);
+			--shadow: 0 16px 0 rgba(32, 35, 55, 0.08);
+		}
+
+		body.dark-mode {
+			--ink: #fffaf1;
+			--muted: #b7bbce;
+			--paper: #181a2b;
+			--pattern: rgba(255, 250, 241, 0.12);
+			--line: rgba(255, 250, 241, 0.18);
+			--shadow: 0 16px 0 rgba(0, 0, 0, 0.3);
+		}
+
+		* { box-sizing: border-box; }
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: "Space Grotesk", sans-serif;
+			overflow-x: hidden;
+			transition: color 220ms ease, background-color 220ms ease;
+		}
+
+		body::before {
+			content: "";
+			position: fixed;
+			inset: 0;
+			z-index: -2;
+			opacity: 0.42;
+			background-image: radial-gradient(var(--pattern) 0.8px, transparent 0.8px);
+			background-size: 19px 19px;
+			pointer-events: none;
+		}
+
+		header, main, footer { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 30px 0;
+		}
+
+		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: var(--ink);
+			font-size: 0.9rem;
+			font-weight: 700;
+			letter-spacing: 0.05em;
+			text-decoration: none;
+			text-transform: uppercase;
+		}
+
+		.brand-mark {
+			display: grid;
+			width: 34px;
+			height: 34px;
+			place-items: center;
+			border: 2px solid var(--ink);
+			border-radius: 11px;
+			background: var(--lemon);
+			box-shadow: 3px 3px 0 var(--ink);
+			font-size: 1.05rem;
+		}
+
+		nav { display: flex; align-items: center; gap: 30px; }
+		nav a { color: var(--muted); font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+		nav a:hover { color: var(--ink); }
+
+		.theme-toggle {
+			display: inline-grid;
+			width: 38px;
+			height: 38px;
+			place-items: center;
+			padding: 0;
+			color: var(--ink);
+			border: 2px solid var(--ink);
+			border-radius: 50%;
+			background: transparent;
+			font-size: 1rem;
+			cursor: pointer;
+			transition: transform 160ms ease, background-color 160ms ease;
+		}
+
+		.theme-toggle:hover { background: var(--lemon); transform: rotate(12deg); }
+		.theme-toggle .sun-icon { display: none; }
+		.dark-mode .theme-toggle .moon-icon { display: none; }
+		.dark-mode .theme-toggle .sun-icon { display: inline; }
+
+		.nav-join, .hero-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--ink);
+			border: 2px solid var(--ink);
+			border-radius: 999px;
+			background: var(--coral);
+			font-weight: 700;
+			text-decoration: none;
+			box-shadow: 4px 4px 0 var(--ink);
+			transition: transform 160ms ease, box-shadow 160ms ease;
+		}
+
+		.nav-join { padding: 10px 19px; font-size: 0.85rem; }
+		.nav-join:hover, .hero-button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+
+		.hero {
+			display: grid;
+			min-height: 535px;
+			grid-template-columns: 1.08fr 0.92fr;
+			align-items: center;
+			gap: 80px;
+			padding: 68px 0 85px;
+		}
+
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			margin: 0 0 22px;
+			color: var(--muted);
+			font-family: "DM Mono", monospace;
+			font-size: 0.76rem;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.eyebrow::before { content: "✦"; color: var(--coral); font-size: 1.15rem; }
+
+		h1 {
+			max-width: 680px;
+			margin: 0;
+			font-size: clamp(4rem, 8vw, 7.8rem);
+			font-weight: 700;
+			letter-spacing: -0.08em;
+			line-height: 0.86;
+		}
+
+		h1 span { color: var(--coral); }
+
+		.hero-copy {
+			max-width: 460px;
+			margin: 30px 0 34px;
+			color: var(--muted);
+			font-size: 1.12rem;
+			line-height: 1.55;
+		}
+
+		.hero-button { gap: 13px; padding: 15px 22px 15px 25px; font-size: 1rem; }
+		.hero-button span { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; background: var(--lemon); font-size: 0.8rem; }
+
+		.hero-art {
+			position: relative;
+			min-height: 410px;
+		}
+
+		.hero-art::before {
+			content: "";
+			position: absolute;
+			top: 14%;
+			left: 12%;
+			width: 75%;
+			height: 70%;
+			border-radius: 48% 52% 55% 45%;
+			background: var(--aqua);
+			transform: rotate(-10deg);
+		}
+
+		.orbit, .orbit-two { position: absolute; border: 1.5px solid var(--ink); border-radius: 50%; transform: rotate(25deg); }
+		.orbit { top: 13%; left: 5%; width: 100%; height: 72%; }
+		.orbit-two { top: 27%; left: 16%; width: 78%; height: 55%; transform: rotate(-35deg); }
+
+		.code-window {
+			position: absolute;
+			top: 17%;
+			left: 18%;
+			width: 70%;
+			overflow: hidden;
+			border: 2px solid var(--ink);
+			border-radius: 18px;
+			background: var(--paper);
+			box-shadow: 9px 10px 0 var(--ink);
+			transform: rotate(5deg);
+		}
+
+		.window-top { display: flex; gap: 6px; padding: 13px 15px; border-bottom: 2px solid var(--ink); background: var(--coral); }
+		.window-top i { display: block; width: 8px; height: 8px; border: 1px solid var(--ink); border-radius: 50%; background: var(--lemon); }
+		.code-window pre { margin: 0; padding: 25px 22px 29px; color: var(--ink); font: 500 0.85rem/1.8 "DM Mono", monospace; }
+		.code-window .tag { color: #eb5e50; }
+		.code-window .value { color: #377e71; }
+
+		.sticker { position: absolute; z-index: 2; display: grid; place-items: center; border: 2px solid var(--ink); font-weight: 700; box-shadow: 4px 4px 0 var(--ink); }
+		.sticker-bolt { top: 5%; right: 4%; width: 65px; height: 65px; border-radius: 50%; background: var(--lemon); font-size: 2rem; transform: rotate(12deg); }
+		.sticker-plus { right: 0; bottom: 9%; width: 50px; height: 50px; border-radius: 13px; background: var(--lilac); font-size: 1.7rem; transform: rotate(-12deg); }
+		.sticker-code { bottom: 7%; left: 3%; padding: 11px 15px; border-radius: 9px; background: var(--paper); font: 500 0.75rem "DM Mono", monospace; transform: rotate(-9deg); }
+
+		.courses-section { padding: 58px 0 90px; }
+		.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 32px; }
+		.section-heading h2 { max-width: 390px; margin: 0; font-size: clamp(2rem, 4vw, 3.3rem); letter-spacing: -0.06em; line-height: 0.98; }
+		.section-note { max-width: 240px; margin: 0 0 4px; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+		.course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+		.course-card { display: block; min-height: 285px; padding: 25px; color: inherit; border: 2px solid var(--ink); border-radius: 18px; background: var(--aqua); box-shadow: var(--shadow); text-decoration: none; transition: transform 180ms ease; }
+		.course-card:hover { transform: translateY(-7px) rotate(-1deg); }
+		.course-card:nth-child(2) { background: var(--lemon); }
+		.course-card:nth-child(3) { background: var(--lilac); }
+		.card-number { font: 500 0.75rem "DM Mono", monospace; }
+		.course-icon { display: grid; width: 52px; height: 52px; margin: 32px 0 23px; place-items: center; border: 2px solid var(--ink); border-radius: 50%; background: var(--paper); font-size: 1.45rem; }
+		.course-card h3 { margin: 0 0 9px; font-size: 1.35rem; letter-spacing: -0.04em; }
+		.course-card p { max-width: 230px; margin: 0; color: rgba(32, 35, 55, 0.7); font-size: 0.9rem; line-height: 1.45; }
+		.course-tag { display: inline-block; margin-top: 25px; font: 500 0.68rem "DM Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; }
+
+		footer { display: flex; justify-content: space-between; padding: 28px 0 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; }
+		footer strong { color: var(--ink); }
+
+		@media (max-width: 760px) {
+			header, main, footer { width: min(100% - 34px, 520px); }
+			header { padding: 20px 0; }
+			nav a { display: none; }
+			.hero { display: block; min-height: 0; padding: 62px 0 55px; }
+			h1 { font-size: clamp(4rem, 20vw, 6.5rem); }
+			.hero-art { min-height: 335px; margin-top: 35px; overflow: hidden; }
+			.code-window { left: 12%; width: 76%; }
+			.section-heading { display: block; }
+			.section-note { margin-top: 15px; }
+			.course-grid { grid-template-columns: 1fr; gap: 15px; }
+			.course-card { min-height: 225px; }
+			.course-icon { margin-top: 22px; }
+			footer { display: block; line-height: 1.8; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<a class="brand" href="index.html#top" aria-label="Brightside Code Club home"><span class="brand-mark">&lt;/&gt;</span> Brightside Club</a>
+		<nav aria-label="Main navigation">
+			<a href="courses.html">კურსები</a>
+			<a href="vibe.html">ჩვენი ხედვა</a>
+			<a href="about.html">ჩვენ შესახებ</a>
+			<button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+				<span class="moon-icon" aria-hidden="true">☾</span>
+				<span class="sun-icon" aria-hidden="true">☀</span>
+			</button>
+			<a class="nav-join" href="join.html">შემოგვიერთდი <span aria-hidden="true">↗</span></a>
+		</nav>
+	</header>
+
+	<main id="top">
+		<section class="hero" id="about">
+			<div>
+				<p class="eyebrow">Curious minds, creative code</p>
+				<h1>Learn to <span>Code.</span></h1>
+				<p class="hero-copy">A colorful coding club for curious kids aged 9–13. Make games, websites, and big ideas come to life, one line at a time.</p>
+				<a class="hero-button" id="join" href="mailto:hello@brightside.club?subject=I%20want%20to%20join">Join the club <span aria-hidden="true">→</span></a>
+			</div>
+			<div class="hero-art" aria-label="A playful code editor illustration">
+				<div class="orbit"></div>
+				<div class="orbit-two"></div>
+				<div class="sticker sticker-bolt" aria-hidden="true">✦</div>
+				<div class="sticker sticker-plus" aria-hidden="true">+</div>
+				<div class="sticker sticker-code" aria-hidden="true">make / play / share</div>
+				<div class="code-window">
+					<div class="window-top"><i></i><i></i><i></i></div>
+					<pre><span class="tag">&lt;h1&gt;</span><br />  hello, world! <span class="value">♡</span><br /><span class="tag">&lt;/h1&gt;</span><br /><br /><span class="tag">&lt;style&gt;</span><br />  color: <span class="value">#ff735d</span>;<br /><span class="tag">&lt;/style&gt;</span></pre>
+				</div>
+			</div>
+		</section>
+
+		<section class="courses-section" id="courses">
+			<div class="section-heading">
+				<h2>Pick a path.<br />Make it yours.</h2>
+				<p class="section-note">Small groups. Big imagination. Every class ends with something you can show off.</p>
+			</div>
+			<div class="course-grid">
+				<a class="course-card" href="html-css.html">
+					<span class="card-number">01 / THE WEB</span>
+					<div class="course-icon" aria-hidden="true">&lt;/&gt;</div>
+					<h3>HTML + CSS</h3>
+					<p>Design your own corner of the internet with color, type, and a little bit of magic.</p>
+					<span class="course-tag">Build a website</span>
+				</a>
+				<a class="course-card" href="python.html">
+					<span class="card-number">02 / THE LOGIC</span>
+					<div class="course-icon" aria-hidden="true">🐍</div>
+					<h3>Python</h3>
+					<p>Tell the computer exactly what to do and turn your ideas into clever mini games.</p>
+					<span class="course-tag">Make it move</span>
+				</a>
+				<a class="course-card" href="ai-vibe-coding.html">
+					<span class="card-number">03 / THE FUTURE</span>
+					<div class="course-icon" aria-hidden="true">✦</div>
+					<h3>AI Vibe Coding</h3>
+					<p>Learn to collaborate with AI, ask better questions, and create things nobody expects.</p>
+					<span class="course-tag">Think different</span>
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<span><strong>Brightside Code Club</strong> · For curious humans 9–13</span>
+		<span>Made with curiosity + &lt;code&gt;</span>
+	</footer>
+
+	<script src="script.js"></script>
+</body>
+</html>
