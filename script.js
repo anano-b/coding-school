@@ -1,6 +1,11 @@
 const themeToggle = document.querySelector(".theme-toggle");
 const savedTheme = localStorage.getItem("brightside-theme");
 
+const brand = document.querySelector(".brand");
+if (brand) {
+	brand.innerHTML = '<span class="brand-mark" aria-hidden="true"></span><span class="brand-copy"><strong>Explorium</strong><small>საგანმანათლებლო ლაბორატორია</small></span>';
+}
+
 const navigation = document.querySelector("nav");
 if (navigation && !navigation.querySelector('a[href="about.html"]')) {
 	const vibeLink = navigation.querySelector('a[href="vibe.html"]');
